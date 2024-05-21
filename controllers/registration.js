@@ -129,7 +129,7 @@ exports.designerRegister = async (req, res) => {
         </ul>
       `,
     });
-    await sgMail.send(DesignerMsg);
+    // await sgMail.send(DesignerMsg);
     res.status(201).json({ message: "Model registered successfully" });
   } catch (error) {
     console.error(error);
@@ -172,9 +172,9 @@ exports.BrandRegister = async (req, res) => {
           
           <li><p>Email : ${email}</p></li>
           <li><p>Subject : ${phone}</p></li>
-          <li><p>Location : ${location}</p></li>
-          <li><p>Experience : ${experience}</p></li>
-          <li><p>Social : ${social}</p></li>
+          <li><p>Location : ${brandname}</p></li>
+          <li><p>Experience : ${brandlink}</p></li>
+          <li><p>Social : ${designation}</p></li>
        
        
 
