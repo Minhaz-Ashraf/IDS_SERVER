@@ -8,5 +8,6 @@ router.get("/getGenXOrPaidMedia", getImageController.getGenXOrPaidMedia);
 router.get("/getGallary", getImageController.getGallery);
 router.get("/getOneImg", getImageController.getOneImg);
 router.get("/getBrand", getImageController.getBrand);
+router.get("/gethighlight", getImageController.getHighlight);
 
 module.exports = router;

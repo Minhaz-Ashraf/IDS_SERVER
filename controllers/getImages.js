@@ -4,9 +4,33 @@ const season2 = require("../files/season2.json");
 const season3 = require("../files/season3.json");
 const season4 = require("../files/season4.json");
 const genx = require("../files/genx.json");
+const homeHighlight = require("../files/homeHighlights.json");
 const paidMedia = require("../files/paidMedia.json");
 const brandDetails = require("../files/brandDetails.json");
 const { getSignedUrlFromS3 } = require("../utils/S3Utils");
+
+exports.getHighlight = async (req, res) =>{
+  try{
+
+ let imageData;
+   imageData = homeHighlight;
+
+   const imageUrls = await Promise.all(
+    imageData.map(async (item) => {
+      const imageUrl = await getSignedUrlFromS3(item.image);
+      return { ...item, imageUrl: imageUrl };
+    })
+  );
+
+  res.status(200).json(imageUrls);
+
+  }catch( error){
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 
 exports.getSeason = async (req, res) => {
   try {
