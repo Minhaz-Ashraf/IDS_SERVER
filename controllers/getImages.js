@@ -9,28 +9,24 @@ const paidMedia = require("../files/paidMedia.json");
 const brandDetails = require("../files/brandDetails.json");
 const { getSignedUrlFromS3 } = require("../utils/S3Utils");
 
-exports.getHighlight = async (req, res) =>{
-  try{
+exports.getHighlight = async (req, res) => {
+  try {
+    let imageData;
+    imageData = homeHighlight;
 
- let imageData;
-   imageData = homeHighlight;
+    const imageUrls = await Promise.all(
+      imageData.map(async (item) => {
+        const imageUrl = await getSignedUrlFromS3(item.image);
+        return { ...item, imageUrl: imageUrl };
+      })
+    );
 
-   const imageUrls = await Promise.all(
-    imageData.map(async (item) => {
-      const imageUrl = await getSignedUrlFromS3(item.image);
-      return { ...item, imageUrl: imageUrl };
-    })
-  );
-
-  res.status(200).json(imageUrls);
-
-  }catch( error){
+    res.status(200).json(imageUrls);
+  } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
   }
-}
-
-
+};
 
 exports.getSeason = async (req, res) => {
   try {
